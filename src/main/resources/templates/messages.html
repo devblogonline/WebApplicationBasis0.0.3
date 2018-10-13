@@ -1,0 +1,29 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>UserList</title>
+</head>
+<body>
+<h1>
+    Messages
+</h1>
+<p>Navigation</p>
+<a href="/">Home</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Subject</th>
+        <th>Body</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="message : ${messages}">
+        <td th:text="${message.id}">ID</td>
+        <td th:text="${message.getSubject()}">Subject</td>
+        <td th:text="${message.getBody()}">Body</td>  
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

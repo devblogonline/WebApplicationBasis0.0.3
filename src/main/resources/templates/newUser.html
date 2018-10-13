@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>New User</title>
+</head>
+<body>
+<h1>
+    New User
+</h1>
+<p>Navigation</p>
+<a href="/">Home</a>
+<a href="/userList">User List</a>
+    <fieldset>
+        <form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
+        <p><label for="name">Name: </label><input type="text" th:field="*{name}" /></p>
+        <p><label for="lastName ">Lastname: </label><input type="text" th:field="*{lastName}" /></p>
+        <p><label for="email">Email: </label><input type="text" th:field="*{email}" /></p>
+        <p><label for="company">Company: </label><input type="text" th:field="*{company}" /></p>
+        <p><label for="username">Username: </label><input type="text" th:field="*{username}" /></p>
+        <p><label for="password">Password: </label><input type="password" th:field="*{password}" /></p>
+        <p><input type="submit" value="Submit" /></p>
+        </form>
+    </fieldset>
+</body>
+</html>
+
