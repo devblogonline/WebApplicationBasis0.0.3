@@ -1,6 +1,8 @@
 package com.webApplicationBasis.User.Controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,10 +20,10 @@ public class UserController {
     private UserRepository userRepository;
     
     @Autowired
-    private MessageRepository messageRepository;
+    private UserDao  userDao;
     
     @Autowired
-    private UserDao  userDao;
+    private NoteDao noteDao;
 
     @RequestMapping(value = "newUser", method = RequestMethod.GET)
     public String newUserView(Model model) {
@@ -30,10 +32,10 @@ public class UserController {
         return "newUser";
     }
 
-    @RequestMapping(value = "userList", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/userList", method = RequestMethod.GET)
     public String userOverview(Model model) {
         model.addAttribute("list", userRepository.findAll());
-        return "userList";
+        return "admin/userList";
     }
 
     @RequestMapping(value = "saveUser", method = RequestMethod.POST)
@@ -48,12 +50,19 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = "messages", method = RequestMethod.GET)
-    public ModelAndView userView(Authentication authentication){
-    	//User authUser = (User) authentication.getPrincipal();
-    	//System.out.println(authUser.getId());
-    	Iterable<Message> messages = messageRepository.findAllMessagesToCurrentUser();
-    	return new ModelAndView("messages", "messages", messages);
+    @RequestMapping(value = "user/privateSpace", method = RequestMethod.GET)
+    public ModelAndView userView(Model model){
+    	List<Note> notes = userRepository.findAllNotesFromCurrentUser();
+    	model.addAttribute("newNote", new Note() );
+    	return new ModelAndView("user/privateSpace", "notes", notes);
+    }
+    
+    @RequestMapping(value = "addNote", method = RequestMethod.POST)
+    public String addNote(@ModelAttribute Note newNote, Model model, Authentication authentication){
+    	User currentUser = userRepository.findByUsername(authentication.getName());
+    	newNote.setOwner(currentUser);
+    	noteDao.addNote(newNote);
+    	return "redirect:/user/privateSpace";
     }
 
 }

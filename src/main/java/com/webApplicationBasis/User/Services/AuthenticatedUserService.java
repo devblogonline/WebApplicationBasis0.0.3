@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.webApplicationBasis.User.Model.User;
 
-/**
- * Created by lauda on 20.09.2018.
- */
-
 @Service
 public class AuthenticatedUserService implements UserDetailsService {
 
@@ -28,4 +24,6 @@ public class AuthenticatedUserService implements UserDetailsService {
 
         return new AuthenticatedUser(user);
     }
+    
+
 }

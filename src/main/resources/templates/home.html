@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
 <head>
-    <title>Home</title>
+<title>Home</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-<h1>
-    Home
-</h1>
-<p>
-    <a href="/newUser">New User</a>
-    <a href="/userList">User List</a>
-</p>
-
+	<div layout:fragment="content">
+	</div>
 </body>
 </html>

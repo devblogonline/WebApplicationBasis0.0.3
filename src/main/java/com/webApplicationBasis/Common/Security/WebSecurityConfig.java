@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,20 +17,13 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 
 import com.webApplicationBasis.User.Services.AuthenticatedUserService;
 
-
-/**
- * Created by lauda on 10.09.2018.
- */
-
-
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity
 @ComponentScan(basePackageClasses = AuthenticatedUserService.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-   // @Autowired
-   // private UserDetailsService userDetailsService;
 
     @Autowired
     private AuthenticatedUserService authenticatedUserService;
@@ -38,10 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .antMatchers("/", "/home","/newUser","/saveUser").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login").failureUrl("/login")
                 .permitAll()
                 .and()
                 .logout()
@@ -66,8 +61,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    
     @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();
     }
+    
 }

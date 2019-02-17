@@ -1,26 +1,61 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
 <head>
-    <title>New User</title>
+<title>Register</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-<h1>
-    New User
-</h1>
-<p>Navigation</p>
-<a href="/">Home</a>
-<a href="/userList">User List</a>
-    <fieldset>
-        <form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
-        <p><label for="name">Name: </label><input type="text" th:field="*{name}" /></p>
-        <p><label for="lastName ">Lastname: </label><input type="text" th:field="*{lastName}" /></p>
-        <p><label for="email">Email: </label><input type="text" th:field="*{email}" /></p>
-        <p><label for="company">Company: </label><input type="text" th:field="*{company}" /></p>
-        <p><label for="username">Username: </label><input type="text" th:field="*{username}" /></p>
-        <p><label for="password">Password: </label><input type="password" th:field="*{password}" /></p>
-        <p><input type="submit" value="Submit" /></p>
-        </form>
-    </fieldset>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-3"></div>
+
+			<div class="col-6">
+			
+				<fieldset>
+					<form action="#" th:action="@{/saveUser}" th:object="${user}" method="post">
+						
+						<div class="form-group">
+						<label for="name">Name: </label><input type="text" class="form-control" th:field="*{name}" />
+						</div>
+						
+						<div class="form-group">
+						<label for="name">Lastname: </label><input type="text" class="form-control" th:field="*{lastName}" />
+						</div>
+						
+						<div class="form-group">
+						<label for="name">Email: </label><input type="text" class="form-control" th:field="*{email}" />
+						</div>
+						
+						<div class="form-group">
+						<label for="name">Company: </label><input type="text" class="form-control" th:field="*{company}" />
+						</div>
+						
+						<div class="form-group">
+						<label for="name">Username: </label><input type="text" class="form-control" th:field="*{username}" />
+						</div>
+						
+						<div class="form-group">
+						<label for="name">Password: </label><input type="password" class="form-control" th:field="*{password}" />
+						</div>
+						<div class="form-group">
+						<select th:field="*{role}">
+    						<option th:value="ROLE_USER" th:text="ROLE_USER"></option>
+    						<option th:value="ROLE_ADMIN" th:text="ROLE_ADMIN"></option>
+						</select>
+						</div>
+
+						<input type="submit" value="Submit" />
+
+					</form>
+				</fieldset>
+			
+			</div>
+
+			<div class="col-3"></div>
+
+		</div>
+	</div>
 </body>
 </html>
-

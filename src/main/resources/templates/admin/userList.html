@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>User List</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-3"></div>
+
+			<div class="col-6">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th>Company</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="users : ${list}">
+							<td th:text="${users.id}">Onions</td>
+							<td th:text="${users.getName()}">Onions</td>
+							<td th:text="${users.lastName}">2.41</td>
+							<td th:text="${users.email}">Onions</td>
+							<td th:text="${users.company}">Onions</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+			<div class="col-3"></div>
+
+		</div>
+	</div>
+</body>
+</html>

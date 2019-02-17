@@ -1,24 +1,24 @@
 package com.webApplicationBasis.User.Model;
 
-/**
- * Created by lauda on 10.10.2018.
- */
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 
 @Entity
-public class Message {
+public class Note {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    
+    @NotEmpty(message = "Subject is required.")
     private String subject;
+    
+    @NotEmpty(message = "Textbody is required.")
     private String body;
 
-    @OneToOne
-    @NotNull
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="OWNER_ID")
     private User owner;
 
     public Long getId() {

@@ -8,20 +8,17 @@ import com.webApplicationBasis.User.Model.User;
 
 import java.util.Collection;
 
-/**
- * Created by lauda on 20.09.2018.
- */
 @SuppressWarnings("serial")
 public class AuthenticatedUser extends User implements UserDetails {
 
 
 	protected AuthenticatedUser(User user){
-        super(user.getUsername(), user.getPassword());
+        super(user.getUsername(), user.getPassword(), user.getRole());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_USER");
+        return AuthorityUtils.createAuthorityList(getRole().name());
     }
 
     @Override

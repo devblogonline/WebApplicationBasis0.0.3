@@ -1,30 +1,54 @@
 package com.webApplicationBasis.User.Model;
 
-import org.hibernate.validator.constraints.NotEmpty;
+
+import java.util.List;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 
 @Entity
 public class User {
 
-    /* NotEmpty Annottation hinzufügen; Email Annottation hinzufügen*/
-
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    
+    @NotEmpty(message = "Name is required.")
     private String name;
+    
+    @NotEmpty(message = "Lastname is required.")
     private String lastName;
+    
+    @Email(message = "Please provide a valid email address.")
+    @NotEmpty(message = "Email is required.")
     private String email;
+ 
     private String company;
 
-    @NotEmpty
+    @NotEmpty(message = "Username is required.")
     private String username;
-    @NotEmpty
+    
+    @NotEmpty(message = "Password is required.")
     private String password;
+    
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    
+    
+    @OneToMany(mappedBy="owner")
+    private List<Note> notes;
 
+	public List<Note> getNotes() {
+		return notes;
+	}
 
-    public User() {}
+	public void setNotes(List<Note> notes) {
+		this.notes = notes;
+	}
+
+	public User() {}
 
     public User(String username){
         this.username = username;
@@ -34,7 +58,13 @@ public class User {
         this.username = username;
         this.password = password;
     }
-
+    
+    public User(String username, String password, Role role){
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -77,5 +107,11 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 }
